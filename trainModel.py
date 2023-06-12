@@ -12,7 +12,7 @@ if __name__ == '__main__':
         tf.config.experimental.set_memory_growth(gpu, True)
 
     # Downlaod Images
-    # downloadData.download_images(Queries, limit=100)
+    downloadData.download_images(Queries, limit=100)
 
     # Remove faulty images
     print("\nRemoving Faulty Images\n")
