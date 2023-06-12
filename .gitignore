@@ -1,2 +1,13 @@
 .DS_Store
+.vscode
 dataset
+__pycache__
+test_angry.jpg
+.gitignore
+test_disgust.jpg
+test_fear.jpg
+test_happy.jpg
+test_sad.jpg
+test_surp.jpg
+test.jpg
+model.h5
