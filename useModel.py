@@ -22,3 +22,5 @@ img = tf.image.resize(img, (256, 256))
 # Predict Image
 prediction = model.predict(np.expand_dims(img/255, 0))[0]
 print(f'Predicted emotion: {CLASSES[np.argmax(prediction)]}')
+print(f'Confidence: {np.max(prediction)}')
+print(f'All: {list(prediction)}')
