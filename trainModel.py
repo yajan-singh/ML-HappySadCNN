@@ -12,11 +12,11 @@ if __name__ == '__main__':
         tf.config.experimental.set_memory_growth(gpu, True)
 
     # Downlaod Images
-    downloadData.download_images(Queries, limit=100)
+    # downloadData.download_images(Queries, limit=100)
 
     # Remove faulty images
     print("\nRemoving Faulty Images\n")
-    downloadData.remove_faulty_images()
+    # downloadData.remove_faulty_images()
 
     # Parse Data
     train_data, val_data, test_data = parseData.split_data(
@@ -26,15 +26,15 @@ if __name__ == '__main__':
     print("\nCreating Model\n")
     model = tf.keras.models.Sequential()
     model.add(tf.keras.layers.Conv2D(
-        32, (3, 3), activation='relu', input_shape=(256, 256, 3)))
+        64, (3, 3), activation='relu', input_shape=(256, 256, 3)))
     model.add(tf.keras.layers.MaxPooling2D((2, 2)))
-    model.add(tf.keras.layers.Conv2D(64, (3, 3), activation='relu'))
+    model.add(tf.keras.layers.Conv2D(128, (3, 3), activation='relu'))
     model.add(tf.keras.layers.MaxPooling2D((2, 2)))
-    model.add(tf.keras.layers.Conv2D(32, (3, 3), activation='relu'))
+    model.add(tf.keras.layers.Conv2D(128, (3, 3), activation='relu'))
     model.add(tf.keras.layers.MaxPooling2D((2, 2)))
     model.add(tf.keras.layers.Flatten())
-    model.add(tf.keras.layers.Dense(256, activation='relu'))
-    model.add(tf.keras.layers.Dense(6, activation='softmax'))
+    model.add(tf.keras.layers.Dense(512, activation='relu'))
+    model.add(tf.keras.layers.Dense(6, activation='sigmoid'))
 
     # Compile Model
     model.compile(optimizer='adam',
@@ -44,10 +44,11 @@ if __name__ == '__main__':
     print("\nTraining Model\n")
     model.fit(train_data, epochs=10, validation_data=val_data)
 
-    # Evaluate Model
-    print("\nEvaluating Model\n")
-    print('\n\n[Loss, Accuracy] --> ' + model.evaluate(test_data) + '\n\n')
-
     # Save Model
     model.save('model.h5')
     print("\nModel Saved\n")
+
+    # Evaluate Model
+    print("\nEvaluating Model\n")
+    print('\n\n[Loss, Accuracy] --> ' +
+          str(model.evaluate(test_data)) + '\n\n')
